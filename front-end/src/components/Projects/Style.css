@@ -1,0 +1,26 @@
+/* Import Adobe Fonts */
+@import url('https://use.typekit.net/abcdef.css');
+
+/* Your existing CSS styles */
+.title {
+  color: rgba(245, 245, 245, 0.799); /* Color for the title */
+  margin-bottom: 10px; /* Bottom margin for the title */
+  font-family: 'Proxima Nova', sans-serif; /* Use Proxima Nova font */
+  font-weight: bold; /* Make the title bold */
+}
+
+.subheading {
+  color: rgb(26, 26, 26); /* Color for the subheading */
+  margin-top: 3px; /* Top margin for the subheading */
+  font-family: 'Proxima Nova', sans-serif; /* Use Proxima Nova font */
+  font-size: large;
+}
+
+.title2 {
+  color: rgba(245, 245, 245, 0.799); /* Color for the title */
+  margin-bottom: 10px; /* Bottom margin for the title */
+  font-family: 'Proxima Nova', sans-serif; /* Use Proxima Nova font */
+  font-weight: bold; /* Make the title bold */
+  text-align: center;
+  font-size: 3rem;
+}

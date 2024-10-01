@@ -1,0 +1,42 @@
+/* sidebar.css */
+
+.sidebar-container {
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 250px; /* Adjust the width as needed */
+  background-color: #2f3b52; /* Background color for the sidebar */
+  overflow-y: auto; /* Allow scrolling if content overflows */
+  z-index: 1000; /* Ensure it is on top */
+}
+
+.profile-picture-container {
+  text-align: center;
+  padding: 20px 0; /* Add some padding for spacing */
+  background-color: #2f3b52; /* Same background color as sidebar */
+}
+
+.profile-picture {
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 2px solid #b6c8d9; /* Optional border for the profile picture */
+}
+
+.menu-item {
+  margin-top: 0px; /* Adjust this value to set the gap between the profile picture and the menu items */
+}
+
+.sidebar-menu-item.active {
+  background-color: #13395e;
+  color: #b6c8d9;
+}
+
+.main-content {
+  margin-left: 250px; /* Same width as the sidebar */
+  padding: 20px; /* Optional padding for content */
+  position: relative;
+  z-index: 1;
+}
