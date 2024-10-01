@@ -1,7 +1,7 @@
 #!/bin/bash
 
-# Get the current directory
-current_dir=$(pwd)
+# Save the original directory
+original_dir=$(pwd)
 
 # Function to initialize Git repository
 initialize_git() {
@@ -14,6 +14,7 @@ initialize_git() {
 }
 
 # Convert the current directory to lowercase
+current_dir=$(pwd)  # Get the current directory
 current_dir_lower=$(echo "$current_dir" | tr '[:upper:]' '[:lower:]')
 
 # Check if the current directory ends with supreet-souharda (case insensitive)
@@ -33,5 +34,11 @@ else
         initialize_git
     else
         echo "Not in a SUPREET-SOUHARDA directory. Exiting..."
+        cd "$original_dir"  # Return to the original directory
+        exit 1  # Exit with a non-zero status
     fi
 fi
+
+# Return to the original directory at the end
+cd "$original_dir"
+echo "Returned to the original directory: $original_dir"
