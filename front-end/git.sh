@@ -14,7 +14,7 @@ initialize_git() {
 }
 
 # Convert the current directory to lowercase
-current_dir=$(pwd)  # Get the current directory
+current_dir=$(pwd) 
 current_dir_lower=$(echo "$current_dir" | tr '[:upper:]' '[:lower:]')
 
 # Check if the current directory ends with supreet-souharda (case insensitive)

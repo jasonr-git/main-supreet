@@ -1,7 +1,16 @@
 import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import {
-  AreaChart, Area, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, Legend, linearGradient, defs
+  AreaChart,
+  Area,
+  XAxis,
+  YAxis,
+  CartesianGrid,
+  Tooltip,
+  ResponsiveContainer,
+  Legend,
+  linearGradient,
+  defs,
 } from 'recharts';
 import backgroundImage from '../../images/probg.jpeg'; // Adjust the path as per your project structure
 
@@ -51,7 +60,6 @@ const updatedData = [
 
 // Main container for the dashboard
 const DashboardContainer = styled.div`
-
   position: relative;
   padding: 50px;
   min-height: 100vh;
@@ -77,7 +85,7 @@ const DashboardContainer = styled.div`
 
 // Card component to wrap the graph
 const Card = styled.div`
-margin-top:8%;
+  margin-top: 8%;
   background: rgba(255, 255, 255, 0.95);
   border-radius: 20px;
   padding: 30px;
@@ -101,11 +109,18 @@ const GraphWrapper = styled.div`
 const CustomTooltip = ({ active, payload, label }) => {
   if (active && payload && payload.length) {
     return (
-      <div style={{ backgroundColor: '#fff', padding: '10px', borderRadius: '5px', boxShadow: '0 4px 8px rgba(0, 0, 0, 0.1)' }}>
+      <div
+        style={{
+          backgroundColor: '#fff',
+          padding: '10px',
+          borderRadius: '5px',
+          boxShadow: '0 4px 8px rgba(0, 0, 0, 0.1)',
+        }}
+      >
         <p>{label}</p>
-        <p style={{ color: payload[0].color }}>{`Profit/Loss: ₹${payload[0].value.toLocaleString()}`}</p>
+        <p style={{ color: payload[0].color }}>{`Profit / Loss: ₹${payload[0].value.toLocaleString()}`}</p>
         <p style={{ color: payload[1].color }}>{`Loan Recovery: ${payload[1].value.toFixed(2)}%`}</p>
-        <p style={{ color: '#82ca9d' }}>{`Dividend: ${payload[2].value}%`}</p>
+        <p style={{ color: '#82ca9d' }}>{`Dividend Percentage: ${payload[2].value}%`}</p>
       </div>
     );
   }
@@ -118,50 +133,72 @@ const Dashboard = () => {
 
   useEffect(() => {
     const interval = setInterval(() => {
-      setChartData(prevData => generateRandomData(prevData));
+      setChartData((prevData) => generateRandomData(prevData));
     }, 4000); // Updates data every 4 seconds
 
     return () => clearInterval(interval);
   }, []);
 
   const generateRandomData = (data) => {
-    return data.map(item => ({
+    return data.map((item) => ({
       ...item,
-      profitLoss: item.profitLoss + Math.random() * 2000 - 1000,
-      loanRecoveryPercentage: item.loanRecoveryPercentage + (Math.random() * 2 - 1),
+      profitLoss: item.profitLoss,
+      loanRecoveryPercentage: item.loanRecoveryPercentage,
     }));
   };
 
   return (
     <DashboardContainer>
-      
       <Card>
         <h2>Financial Progress</h2>
         <GraphWrapper>
           <ResponsiveContainer width="100%" height="100%">
-            <AreaChart data={chartData} margin={{ top: 30, right: 30, left: 0, bottom: 0 }}>
+            <AreaChart
+              data={chartData}
+              margin={{ top: 30, right: 30, left: 0, bottom: 0 }}
+            >
               <defs>
                 <linearGradient id="colorProfit" x1="0" y1="0" x2="0" y2="1">
                   <stop offset="5%" stopColor="#82ca9d" stopOpacity={0.8} />
                   <stop offset="95%" stopColor="#82ca9d" stopOpacity={0} />
                 </linearGradient>
-                <linearGradient id="colorLoanRecovery" x1="0" y1="0" x2="0" y2="1">
+                <linearGradient
+                  id="colorLoanRecovery"
+                  x1="0"
+                  y1="0"
+                  x2="0"
+                  y2="1"
+                >
                   <stop offset="5%" stopColor="#8884d8" stopOpacity={0.8} />
                   <stop offset="95%" stopColor="#8884d8" stopOpacity={0} />
                 </linearGradient>
               </defs>
               <CartesianGrid strokeDasharray="3 3" stroke="#ccc" />
-              <XAxis dataKey="year" tick={{ fontSize: 12, fill: '#333' }} tickLine={false} />
+              <XAxis
+                dataKey="year"
+                tick={{ fontSize: 12, fill: '#333' }}
+                tickLine={false}
+              />
               <YAxis tick={{ fontSize: 12, fill: '#333' }} tickLine={false} />
               <Tooltip content={<CustomTooltip />} />
-              <Legend verticalAlign="top" height={36} />
+              <Legend
+                verticalAlign="top"
+                height={36}
+                formatter={(value) => {
+                  if (value === 'profitLoss') return 'Profit / Loss';
+                  if (value === 'loanRecoveryPercentage')
+                    return 'Loan Recovery';
+                  if (value === 'dividendPercentage')
+                    return 'Dividend Percentage';
+                  return value;
+                }}
+              />
               <Area
                 type="monotone"
                 dataKey="profitLoss"
                 stroke="#82ca9d"
                 fill="url(#colorProfit)"
                 strokeWidth={2}
-                animationDuration={1500}
               />
               <Area
                 type="monotone"
@@ -169,7 +206,6 @@ const Dashboard = () => {
                 stroke="#8884d8"
                 fill="url(#colorLoanRecovery)"
                 strokeWidth={2}
-                animationDuration={1500}
               />
               <Area
                 type="monotone"

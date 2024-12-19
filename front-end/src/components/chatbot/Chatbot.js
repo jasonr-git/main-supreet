@@ -42,9 +42,120 @@ const ChatBot = () => {
 
 
       Management 
-       owner : Mr.Santaig Horta
+       President : Mr.Thomas Horta
+       Adviser
        manager : Mr.Sohan Santiag Horta
        these are verified data
+      const teamMembers = [
+  {
+    id: 1,
+    name: 'Santiag Thome Horta',
+    role: 'Founder',
+    image: '/images/santiag-thome-horta.jpg', // Replace with the actual image path
+  },
+  {
+    id: 2,
+    name: 'Sohan Santiag Horta',
+    role: 'General Manager',
+    image: '/images/sohan-santiag-horta.jpg', // Replace with the actual image path
+  },
+  {
+    id: 3,
+    name: 'Thomas Thome Horta',
+    role: 'President',
+    image: '/images/thomas-thome-horta.jpg', // Replace with the actual image path
+  },
+  {
+    id: 4,
+    name: 'James Ambrose Rodrigues',
+    role: 'Vice President',
+    image: '/images/james-ambrose-rodrigues.jpg', // Replace with the actual image path
+  },
+  {
+    id: 5,
+    name: 'Suryakanth Mahadev Sarang',
+    role: 'Director',
+    image: '/images/suryakanth-mahadev-sarang.jpg', // Replace with the actual image path
+  },
+  {
+    id: 6,
+    name: 'Gajanana Sannayya Naik',
+    role: 'Director',
+    image: '/images/gajanana-sannayya-naik.jpg', // Replace with the actual image path
+  },
+  {
+    id: 7,
+    name: 'Sheshagiri Venkappa Tandel',
+    role: 'Director',
+    image: '/images/sheshagiri-venkappa-tandel.jpg', // Replace with the actual image path
+  },
+  {
+    id: 8,
+    name: 'Shivu Shivu Mukri',
+    role: 'Director',
+    image: '/images/shivu-shivu-mukri.jpg', // Replace with the actual image path
+  },
+  {
+    id: 9,
+    name: "Bastian Shaver D'souza",
+    role: 'Director',
+    image: '/images/bastian-shaver-dsouza.jpg', // Replace with the actual image path
+  },
+  {
+    id: 10,
+    name: 'Natholin Thome Horta',
+    role: 'Director',
+    image: '/images/natholin-thome-horta.jpg', // Replace with the actual image path
+  },
+  {
+    id: 11,
+    name: 'James Juvanbavtis Fernandes',
+    role: 'Director',
+    image: '/images/james-juvanbavtis-fernandes.jpg', // Replace with the actual image path
+  },
+  {
+    id: 12,
+    name: 'Gracy James Fernandes',
+    role: 'Director',
+    image: '/images/gracy-james-fernandes.jpg', // Replace with the actual image path
+  },
+  {
+    id: 13,
+    name: 'Leena Felix Fernandes',
+    role: 'Director',
+    image: '/images/leena-felix-fernandes.jpg', // Replace with the actual image path
+  },
+  {
+    id: 14,
+    name: 'Felix Shimov Fernandes',
+    role: 'Director',
+    image: '/images/felix-shimov-fernandes.jpg', // Replace with the actual image path
+  },
+  {
+    id: 15,
+    name: 'Severina James Rodrigues',
+    role: 'Director',
+    image: '/images/severina-james-rodrigues.jpg', // Replace with the actual image path
+  },
+  {
+    id: 16,
+    name: 'Glancy George Fernandes',
+    role: 'Director',
+    image: '/images/glancy-george-fernandes.jpg', // Replace with the actual image path
+  },
+  {
+    id: 17,
+    name: 'Lawrence Duming Leema',
+    role: 'Director',
+    image: '/images/lawrence-duming-leema.jpg', // Replace with the actual image path
+  },
+  {
+
+    name: 'Prakash Dasint Vodtha',
+    role: 'Director',
+
+  },
+];
 
       if somone asked for the developer of the website of who built the website answer them
         jason j rodrigues 

@@ -212,18 +212,24 @@ const styles = {
   },
   floatingButton: {
     position: "fixed",
-    top: "20px",
+    top: "50%",
     left: "20px",
+    transform: "translateY(-50%)", // Center the button vertically
     backgroundColor: "#007bff",
     color: "#fff",
     border: "none",
-    borderRadius: "50%",
+    borderRadius: "50%", // Make it circular
     padding: "15px",
     fontSize: "20px",
     cursor: "pointer",
     boxShadow: "0 4px 8px rgba(0, 0, 0, 0.3)",
     zIndex: 1000,
     transition: "transform 0.2s",
+    width: "60px", // Ensure consistent size
+    height: "60px", // Ensure consistent size
+    display: "flex",
+    justifyContent: "center",
+    alignItems: "center", // Center icon inside
   },
   floatingCalculator: {
     position: "fixed",

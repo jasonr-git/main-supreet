@@ -11,7 +11,8 @@ const FooterContainer = styled.div`
   background: #f8f9fa;
   color: #333;
   margin-top: auto;
-s
+  // box-shadow: 10px 10px 10px rgba(0, 0, 0, 1); 
+
 `;
 
 const DesktopFooterWrapper = styled.footer`

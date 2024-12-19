@@ -125,7 +125,10 @@ const Skills = () => {
         <Title>About</Title>
         <Text>
         <Desc>
-          Supreet Souharda Bank, your friendly neighborhood cooperative bank in Kellaginoor, Karnataka, is committed to empowering our members and the community. We offer a variety of accounts, fixed deposits, and loans, alongside membership benefits and a focus on supporting local growth. Join us and experience the difference cooperative banking can make!
+          Supreet Souharda Society, your friendly neighborhood Souharda Society in Kelginoor,
+           Honnavar, is committed to empowering our members and the community. We offer a variety of 
+           accounts, fixed deposits, and loans, alongside membership benefits and a focus on supporting 
+           local growth. Join us and experience the difference Souharda Society can make!
         </Desc>
         </Text>
         <SkillsContainer>
@@ -135,7 +138,7 @@ const Skills = () => {
           </Skill>
           <Skill>
             <SkillImage src={skillImage2} alt="Skill 2" />
-            <Button onClick={() => navigate('/loan')}>Apply Now</Button>
+            <Button onClick={() => navigate('/payment')}>Make Repayment</Button>
           </Skill>
           {/* Add more skills as needed */}
         </SkillsContainer>

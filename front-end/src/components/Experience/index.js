@@ -269,10 +269,10 @@ const Index = () => {
                     </Timeline>
                 </TimelineSection>
             </Wrapper> */}
-{/* 
+
             <Wrapper>
                 <Management />
-            </Wrapper> */}
+            </Wrapper>
             <Sidebar isEnglish={isEnglish} toggleLanguage={toggleLanguage} />
         </Container>
     );

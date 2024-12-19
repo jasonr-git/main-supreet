@@ -17,11 +17,6 @@ const importAll = (r) => {
       description: "This is the first group of images.",
       images: group1Images,
     },
-    {
-      title: "Group 2",
-      description: "This is the second group of images.",
-      images: group2Images,
-    },
   ];
   
   export default photoGroups;

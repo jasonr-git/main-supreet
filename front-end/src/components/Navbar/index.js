@@ -62,7 +62,7 @@ const Navbar = () => {
   return (
     <>
      <BackgroundShape />
-      <h1 className="header">ಸುಪ್ರೀತ್ ಸೌಹಾರ್ದ ಕೋ-ಆಪರೇಟಿವ್ ಸೊಸೈಟಿ</h1>
+      <h1 className="header">ಸುಪ್ರೀತ್ ಸೌಹಾರ್ದ ಕೋ-ಆಪರೇಟಿವ್ ಸೊಸೈಟಿ ಲಿ. ಕೆಳಗಿನೂರು </h1>
       <Nav className="navbg" scrolled={scrolled}>
         <NavbarContainer>
           <NavLogo to=''>

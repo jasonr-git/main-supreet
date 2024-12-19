@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
-import { FaCircle, FaArrowLeft, FaArrowRight } from 'react-icons/fa';
+import { FaCircle } from 'react-icons/fa';
 import photoGroups from './photoData'; // Adjust the path if necessary
 
 const GalleryContainer = styled.div`
@@ -82,6 +82,23 @@ const GalleryItem = styled.div`
   }
 `;
 
+const LoadMoreButton = styled.button`
+  background-color: white;
+  color: #ff7e5f;
+  border: none;
+  padding: 10px 20px;
+  margin: 20px 0;
+  cursor: pointer;
+  font-size: 1rem;
+  border-radius: 5px;
+  transition: background-color 0.3s;
+
+  &:hover {
+    background-color: #ff7e5f;
+    color: white;
+  }
+`;
+
 const LineWrapper = styled.div`
   display: flex;
   flex-direction: column;
@@ -107,117 +124,6 @@ const Dot = styled(FaCircle)`
   margin: 10px 0;
 `;
 
-const ModalContainer = styled.div`
-  position: fixed;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background: rgba(0, 0, 0, 0.8);
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  flex-direction: column;
-
-  @media (max-width: 768px) {
-    padding: 10px;
-  }
-`;
-
-const ImageWrapper = styled.div`
-  margin-top: 10vh;
-  position: relative;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  width: 100%;
-
-  img {
-    width: 700px;
-    height: 500px;
-    object-fit: cover;
-    border-radius: 8px;
-
-    @media (max-width: 1024px) {
-      width: 80%;
-      height: auto;
-    }
-
-    @media (max-width: 768px) {
-      width: 90%;
-      height: auto;
-    }
-
-    @media (max-width: 480px) {
-      width: 100%;
-      height: auto;
-    }
-  }
-`;
-
-const CloseButton = styled.button`
-  background: transparent;
-  border: none;
-  color: white;
-  font-size: 24px;
-  cursor: pointer;
-  z-index: 1000;
-  margin: 10px 0;
-
-  @media (max-width: 768px) {
-    font-size: 20px;
-  }
-
-  @media (max-width: 480px) {
-    font-size: 18px;
-  }
-`;
-
-const Arrow = styled.button`
-  background: transparent;
-  border: none;
-  color: white;
-  font-size: 24px;
-  cursor: pointer;
-
-  @media (max-width: 768px) {
-    font-size: 20px;
-  }
-
-  @media (max-width: 480px) {
-    font-size: 18px;
-  }
-`;
-
-const ThumbnailContainer = styled.div`
-  display: flex;
-  justify-content: center;
-  margin-top: 20px;
-  gap: 10px;
-
-  img {
-    width: 70px;
-    height: 50px;
-    cursor: pointer;
-    border-radius: 4px;
-    transition: transform 0.3s;
-
-    &:hover {
-      transform: scale(1.05);
-    }
-
-    @media (max-width: 768px) {
-      width: 60px;
-      height: 45px;
-    }
-
-    @media (max-width: 480px) {
-      width: 50px;
-      height: 40px;
-    }
-  }
-`;
-
 const FooterWrapper = styled.div`
   background-color: black;
   color: white;
@@ -228,40 +134,17 @@ const FooterWrapper = styled.div`
 const Footer = () => <div>© 2024 Your Company. All rights reserved.</div>;
 
 const Gallery = () => {
-  const [openModal, setOpenModal] = useState(false);
-  const [currentImage, setCurrentImage] = useState(null);
+  const [visibleImages, setVisibleImages] = useState(10); // Number of initially visible images
   const [images, setImages] = useState([]);
-
-  useEffect(() => {
-    window.scrollTo(0, 0);
-  }, []);
-
-  const handlePhotoClick = (photo) => {
-    setCurrentImage(photo);
-    setOpenModal(true);
-  };
-
-  const closeModal = () => {
-    setOpenModal(false);
-    setCurrentImage(null);
-  };
-
-  const handleNext = () => {
-    const currentIndex = images.findIndex(img => img.id === currentImage.id);
-    const nextIndex = (currentIndex + 1) % images.length;
-    setCurrentImage(images[nextIndex]);
-  };
-
-  const handlePrevious = () => {
-    const currentIndex = images.findIndex(img => img.id === currentImage.id);
-    const previousIndex = (currentIndex - 1 + images.length) % images.length;
-    setCurrentImage(images[previousIndex]);
-  };
 
   useEffect(() => {
     const allImages = photoGroups.flatMap(group => group.images);
     setImages(allImages);
   }, []);
+
+  const loadMoreImages = () => {
+    setVisibleImages(prevCount => prevCount + 10); // Load 10 more images on each click
+  };
 
   return (
     <GalleryContainer>
@@ -271,9 +154,9 @@ const Gallery = () => {
             <GroupTitle>{group.title}</GroupTitle>
             <GroupDescription>{group.description}</GroupDescription>
             <ImageContainer>
-              {group.images.map(photo => (
-                <GalleryItem key={photo.id} onClick={() => handlePhotoClick(photo)}>
-                  <img src={photo.src} alt={photo.alt} />
+              {group.images.slice(0, visibleImages).map(photo => (
+                <GalleryItem key={photo.id}>
+                  <img src={photo.src} alt={photo.alt} loading="lazy" />
                 </GalleryItem>
               ))}
             </ImageContainer>
@@ -286,35 +169,18 @@ const Gallery = () => {
             )}
           </GalleryGroup>
         ))}
+        {visibleImages < images.length && (
+          <LoadMoreButton onClick={loadMoreImages}>
+            Load More
+          </LoadMoreButton>
+        )}
       </ContentWrapper>
 
       <FooterWrapper>
         <Footer />
       </FooterWrapper>
-
-      {openModal && currentImage && (
-        <ModalContainer>
-          <Arrow onClick={handlePrevious}><FaArrowLeft /></Arrow>
-          <CloseButton onClick={closeModal}>×</CloseButton>
-          <ImageWrapper>
-            <img src={currentImage.src} alt={currentImage.alt} />
-          </ImageWrapper>
-          <Arrow onClick={handleNext}><FaArrowRight /></Arrow>
-
-          <ThumbnailContainer>
-            {images.map((img) => (
-              <img 
-                key={img.id} 
-                src={img.src} 
-                alt={img.alt} 
-                onClick={() => setCurrentImage(img)} 
-              />
-            ))}
-          </ThumbnailContainer>
-        </ModalContainer>
-      )}
     </GalleryContainer>
   );
-}
+};
 
 export default Gallery;

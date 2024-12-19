@@ -21,7 +21,7 @@ const Header = () => {
 
   return (
     <div className={`header-container ${folded ? 'folded' : ''}`}>
-      <h1 className="header-title">ಸುಪ್ರೀತ್ ಸೌಹಾರ್ದ ಕೋ-ಆಪರೇಟಿವ್ ಸೊಸೈಟಿ</h1>
+      <h1 className="header-title">ಸುಪ್ರೀತ್ ಸೌಹಾರ್ದ ಕೋ-ಆಪರೇಟಿವ್ ಸೊಸೈಟಿ ಲಿ. ಕೆಳಗಿನೂರು</h1>
     </div>
   );
 };

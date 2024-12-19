@@ -193,29 +193,29 @@ const Project2Table = () => (
       </tr>
     </thead>
     <tbody>
-      <tr>
-        <TableCell>₹10,000</TableCell>
-        <TableCell>₹10,850</TableCell>
-        <TableCell>₹11,800</TableCell>
-        <TableCell>₹13,000</TableCell>
-        <TableCell>₹14,200</TableCell>
-        <TableCell>₹20,000</TableCell>
-      </tr>
-      <tr>
-        <TableCell>₹25,000</TableCell>
-        <TableCell>₹27,125</TableCell>
-        <TableCell>₹27,125</TableCell>
-        <TableCell>₹32,500</TableCell>
-        <TableCell>₹35,500</TableCell>
-        <TableCell>₹50,000</TableCell>
-      </tr>
-      <tr>
+    <tr>
         <TableCell>₹50,000</TableCell>
         <TableCell>₹54,250</TableCell>
         <TableCell>₹59,000</TableCell>
         <TableCell>₹65,000</TableCell>
         <TableCell>₹71,000</TableCell>
         <TableCell>₹100,000</TableCell>
+      </tr>
+      <tr>
+        <TableCell>₹1,00,000</TableCell>
+        <TableCell>₹1,08,500</TableCell>
+        <TableCell>₹1,18,000</TableCell>
+        <TableCell>₹1,30,000</TableCell>
+        <TableCell>₹1,42,000</TableCell>
+        <TableCell>₹2,00,000</TableCell>
+      </tr>
+      <tr>
+        <TableCell>₹2,50,000</TableCell>
+        <TableCell>₹2,71,250</TableCell>
+        <TableCell>₹2,95,000</TableCell>
+        <TableCell>₹3,25,000</TableCell>
+        <TableCell>₹3,55,000</TableCell>
+        <TableCell>₹5,00,000</TableCell>
       </tr>
     </tbody>
   </TableStyles>
@@ -349,7 +349,7 @@ const ProjectsPage = ({ openModal, setOpenModal }) => {
 
         <Card onClick={() => setOpenModal({ state: true, project: { /* your project data here */ } })}>
           <Image src="https://www.financialexpress.com/wp-content/uploads/2024/04/Savings-accounts.jpg" /> {/* Replace with your image path */}
-          <Button href="link/to/your/webapp"> {/* Replace with your web app link */}
+          <Button href="/openaccount"> {/* Replace with your web app link */}
             Apply Now
           </Button>
         </Card>
