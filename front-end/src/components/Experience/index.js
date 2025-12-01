@@ -3,13 +3,7 @@ import styled from 'styled-components';
 import { collection, getDocs } from 'firebase/firestore';
 import { db } from '../../firebase';
 import { CircularProgress, Typography } from '@mui/material';
-import Timeline from '@mui/lab/Timeline';
-import TimelineItem from '@mui/lab/TimelineItem';
-import TimelineSeparator from '@mui/lab/TimelineSeparator';
-import TimelineConnector from '@mui/lab/TimelineConnector';
-import TimelineContent from '@mui/lab/TimelineContent';
-import TimelineDot from '@mui/lab/TimelineDot';
-import ExperienceCard from '../Cards/ExperienceCard';
+
 import Management from './member';
 
 // Import your CSS file for Sidebar
@@ -108,21 +102,7 @@ const Desc = styled.div`
     text-align: justify; 
 `;
 
-const TimelineSection = styled.div`
-    width: 100%;
-    max-width: 960px;
-    margin-top: 10px;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    gap: 12px;
-    margin-left: -3%;
-     @media (max-width: 768px) {
-        margin-top: 12px;
-        margin-left: -10%;
-    }
-`;
+
 
 const LoadingContainer = styled.div`
     display: flex;
@@ -187,7 +167,7 @@ const Index = () => {
     const [isEnglish, setIsEnglish] = useState(true);
     const [originDesc, setOriginDesc] = useState('');
     const [loading, setLoading] = useState(true);
-    const [experiences, setExperiences] = useState([]);
+    const [, setExperiences] = useState([]);
 
     const toggleLanguage = (isEnglish) => {
         setIsEnglish(isEnglish);
@@ -212,23 +192,7 @@ const Index = () => {
             }
         };
 
-        const fetchExperiences = async () => {
-            try {
-                const querySnapshot = await getDocs(collection(db, 'progress'));
-                const data = [];
-                querySnapshot.forEach((doc) => {
-                    data.push({ id: doc.id, ...doc.data() });
-                });
-                setExperiences(data);
-            } catch (error) {
-                console.error('Error fetching experiences:', error);
-            } finally {
-                setLoading(false);
-            }
-        };
-
         fetchOriginDescription();
-        fetchExperiences();
     }, [isEnglish]); // Add isEnglish to the dependency array
 
     if (loading) {

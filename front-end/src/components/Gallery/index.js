@@ -89,7 +89,7 @@ const ArrowButton = styled(IconButton)`
 
 const Projects = ({ openModal, setOpenModal }) => {
   const [projects, setProjects] = useState([]);
-  const [toggle, setToggle] = useState('all');
+
   const [loading, setLoading] = useState(true);
   const [currentIndex, setCurrentIndex] = useState(0);
 

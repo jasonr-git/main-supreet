@@ -219,8 +219,7 @@ const Project4Table = () => (
 );
 
 const ProjectsPage = ({ openModal, setOpenModal }) => {
-  const [loading, setLoading] = useState(false);
-  const isMobile = useMediaQuery('(max-width:600px)');
+  const [loading] = useState(false);
 
   if (loading) {
     return (

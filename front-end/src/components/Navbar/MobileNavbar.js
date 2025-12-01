@@ -125,7 +125,7 @@ const ExpandButton = styled.div`
 const MobileNavbar = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [isChatbotOpen, setIsChatbotOpen] = useState(false);
-  const theme = useTheme();
+
   const [activeTab, setActiveTab] = useState('Home');
 
   const toggleMenu = () => {

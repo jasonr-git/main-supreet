@@ -158,7 +158,7 @@ const Contact = () => {
   const [alertOpen, setAlertOpen] = useState(false);
   const [alertSeverity, setAlertSeverity] = useState('success');
   const [alertMessage, setAlertMessage] = useState('');
-  const [flipped, setFlipped] = useState(false);
+  const [, setFlipped] = useState(false);
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -181,9 +181,7 @@ const Contact = () => {
       );
   };
 
-  const handleResend = () => {
-    setFlipped(false); // Reset flipped state to false to flip the form back
-  };
+
 
   return (
     <Container>

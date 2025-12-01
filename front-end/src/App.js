@@ -7,19 +7,15 @@ import { BrowserRouter as Router, Routes, Route, useLocation } from 'react-route
 import HeroSection from "./components/HeroSection/index.js";
 import Services from "./components/Desc/index.js";
 import Footer from "./components/Footer/index.js";
-import ProjectDetails from "./components/ProjectDetails/index.jsx";
 import Gallery from "./pages/Gallery/Gallery.jsx";
 import Stats from "./pages/stats/stats.js";
 import Servicepage from "./pages/services/services.js";
 import Contactpage from "./pages/contact/contact.js";
 import Chatbot from "./components/chatbot/Chatbot.js";
-import EMICalculator from "./components/emi/EMICalculator.js";
-import Sidebar from "./components/sidebar/Sidebar.js";
 import styled from "styled-components"; 
 import News from "./pages/News/News.js";
 import Header from "./components/Header/Header.js";
 import OpenAccount from "./pages/OpenAccount/index.js";
-import GoldPriceChart from "./components/Gold/GoldPriceChart.js";
 import Loan from "./pages/services/Loan.js";
 import OtherService from "./pages/services/Others.js";
 import PaymentPage from "./pages/payment/index.js";
@@ -93,7 +89,7 @@ const ScrollToTop = () => {
 
 function App() {
   const [folded, setFolded] = useState(false);
-  const [openModal, setOpenModal] = useState({ state: false, project: null });
+
 
   const handleScroll = () => {
     if (window.scrollY > 50) { // Adjust this value as needed

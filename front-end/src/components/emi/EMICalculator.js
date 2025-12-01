@@ -4,9 +4,9 @@ import './EMICalculator.css';  // You can style your component here
 const INR_TO_USD_EXCHANGE_RATE = 75; // Exchange rate: 1 USD = 75 INR
 
 const EMICalculator = () => {
-  const [loanAmount, setLoanAmount] = useState(25000 * INR_TO_USD_EXCHANGE_RATE);
-  const [interestRate, setInterestRate] = useState(9);
-  const [loanTenure, setLoanTenure] = useState(14);
+  const [loanAmount] = useState(25000 * INR_TO_USD_EXCHANGE_RATE);
+  const [interestRate] = useState(9);
+  const [loanTenure] = useState(14);
   const [emi, setEmi] = useState(0);
   const [totalPayment, setTotalPayment] = useState(0);
   const [totalInterest, setTotalInterest] = useState(0);
@@ -35,7 +35,7 @@ const EMICalculator = () => {
 
   React.useEffect(() => {
     calculateEMI();
-  }, [loanAmount, interestRate, loanTenure]);
+  }, [loanAmount, interestRate, loanTenure, calculateEMI]);
 
   return (
     <div className={`emi-calculator ${isSidebarOpen ? 'sidebar-open' : ''}`}>

@@ -1,6 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
-import { CircularProgress, Typography } from '@mui/material';
+
 
 // Styled components
 const Container = styled.div`

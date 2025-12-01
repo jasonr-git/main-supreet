@@ -18,9 +18,7 @@ const Sidebar = () => {
     };
   }, []);
 
-  const toggleLanguage = () => {
-    setIsEnglish(!isEnglish);
-  };
+
 
   const toggleSidebar = () => {
     setIsExpanded(!isExpanded);

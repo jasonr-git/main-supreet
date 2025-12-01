@@ -31,14 +31,7 @@ const Wrapper = styled.div`
   align-items: center;
 `;
 
-const Title = styled.h2`
-  font-weight: bold;
-  color: white;
-  font-size: 50px;
-  text-align: center;
-  margin-bottom: 2rem;
-  margin-top: 2rem;
-`;
+
 
 const CardContainer = styled.div`
   display: flex;
@@ -308,7 +301,7 @@ const Project4Table = () => (
 export { Project2Table, Project3Table, Project4Table };
 
 const ProjectsPage = ({ openModal, setOpenModal }) => {
-  const [loading, setLoading] = useState(false);
+  const [loading] = useState(false);
   const isMobile = useMediaQuery('(max-width:600px)'); 
 
   if (loading) {

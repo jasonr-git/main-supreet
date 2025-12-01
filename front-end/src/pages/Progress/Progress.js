@@ -9,8 +9,7 @@ import {
   Tooltip,
   ResponsiveContainer,
   Legend,
-  linearGradient,
-  defs,
+
 } from 'recharts';
 import backgroundImage from '../../images/probg.jpeg'; // Adjust the path as per your project structure
 

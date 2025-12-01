@@ -9,7 +9,7 @@ const importAll = (r) => {
   
   // Adjust the regex to capture various image formats
   const group1Images = importAll(require.context('../../images/supreet-ing', false, /\.(png|jpe?g|jpg|gif|svg|bmp|tiff|webp)$/));
-  const group2Images = importAll(require.context('../../images', false, /\.(png|jpe?g|jpg|gif|svg|bmp|tiff|webp)$/));
+
   
   const photoGroups = [
     {

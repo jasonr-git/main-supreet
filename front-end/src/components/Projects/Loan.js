@@ -84,7 +84,7 @@ const TextOverflow = styled.div`
 
 const NewProjectsPage = ({ openModal, setOpenModal }) => {
   const [newProjects, setNewProjects] = useState([]);
-  const [toggle, setToggle] = useState('all');
+  const [toggle] = useState('all');
   const [loading, setLoading] = useState(true);
   const [newServicesTitle, setNewServicesTitle] = useState('');
 
