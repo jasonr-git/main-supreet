@@ -11,9 +11,9 @@ import {
 const Step1 = ({ formData, handleChange, handleNextStep }) => {
   const [loading, setLoading] = useState(false); // State to manage the loading state
 
-  // Validate phone number and payment type
+  // Validate required fields
   const isFormValid = () => {
-    return formData.phoneNumber && formData.paymentType; // Validate that phoneNumber and paymentType are not empty
+    return formData.phoneNumber && formData.paymentType && formData.email && formData.branch;
   };
 
   const handleAmountChange = (e) => {
@@ -24,43 +24,49 @@ const Step1 = ({ formData, handleChange, handleNextStep }) => {
   };
 
   const handleNext = () => {
-    // If form is invalid, return early
     if (!isFormValid()) {
-      alert("Please fill in all required fields (Phone number and Payment type)."
-      );
+      alert("Please fill in all required fields.");
       return;
     }
-    handleNextStep(); // Proceed to the next step
+    handleNextStep();
   };
 
   return (
     <UniqueFormStep>
       <h2>Enter Details</h2>
 
-      {/* Name field */}
       <UniqueLabel htmlFor="name">Name:</UniqueLabel>
       <UniqueInput
         type="text"
         id="name"
         name="name"
         value={formData.name}
-        onChange={handleChange} // Ensure this is updating formData correctly
+        onChange={handleChange}
+      />
+
+      <UniqueLabel htmlFor="email">Email:</UniqueLabel>
+      <UniqueInput
+        type="email"
+        id="email"
+        name="email"
+        value={formData.email}
+        onChange={handleChange}
+        disabled={loading}
       />
       
-      {/* Payment Type dropdown */}
       <UniqueLabel htmlFor="paymentType">Payment Type:</UniqueLabel>
       <UniqueSelect
         id="paymentType"
         name="paymentType"
         value={formData.paymentType}
         onChange={handleChange}
-        disabled={loading} // Disable if loading is true
+        disabled={loading}
       >
-        <option value="" disabled>Select Payment Type</option> {/* Placeholder option */}
-        <option value="loan">Loan Repayment</option>
-        <option value="rd">RD Payment</option>
-        <option value="fd">FD Payment</option>
-        <option value="dep">Make Deposit</option>
+        <option value="" disabled>Select Payment Type</option>
+        <option value="Recurring Deposit">Recurring Deposit</option>
+        <option value="Loan Repayment">Loan Repayment</option>
+        <option value="Fixed Deposit">Fixed Deposit</option>
+        <option value="Other">Other</option>
       </UniqueSelect>
 
       {/* Phone Number field */}
@@ -74,15 +80,28 @@ const Step1 = ({ formData, handleChange, handleNextStep }) => {
         disabled={loading} // Disable if loading is true
       />
 
-      {/* Amount field */}
       <UniqueLabel htmlFor="amount">Amount:</UniqueLabel>
       <UniqueInput
         type="number"
         id="amount"
         name="amount"
         value={formData.amount}
-        onChange={handleAmountChange} // Use custom handler to prevent negative values
+        onChange={handleAmountChange}
       />
+
+      <UniqueLabel htmlFor="branch">Branch:</UniqueLabel>
+      <UniqueSelect
+        id="branch"
+        name="branch"
+        value={formData.branch}
+        onChange={handleChange}
+        disabled={loading}
+      >
+        <option value="" disabled>Select Branch</option>
+        <option value="Mangalore">Mangalore</option>
+        <option value="Kasaragod">Kasaragod</option>
+        <option value="Kavalakki">Kavalakki</option>
+      </UniqueSelect>
 
       {/* Remarks field */}
       <UniqueLabel htmlFor="remarks">Remarks:</UniqueLabel>

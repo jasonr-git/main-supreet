@@ -18,14 +18,14 @@ const FooterContainer = styled.div`
 const DesktopFooterWrapper = styled.footer`
   max-width: 1200px;
   margin: 0 auto;
-  padding: 1rem;
-  display: grid;
-  grid-template-columns: 1fr 1px 1fr;
-  align-items: center;
-  gap: 2rem;
+  padding: 2rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: start;
+  gap: 4rem;
 
   @media (max-width: 768px) {
-    display: none; /* Hide desktop footer on mobile */
+    display: none;
   }
 `;
 
@@ -37,19 +37,64 @@ const MobileFooterWrapper = styled.div`
   }
 `;
 
-const PartitionLine = styled.div`
+
+
+const BranchesContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+`;
+
+const DividerLine = styled.div`
   width: 1px;
-  background-color: grey;
-  height: 200px;
-  justify-self: center;
+  height: 60%;
+  background-color: rgba(128, 128, 128, 1);
+  align-self: center;
   
   @media (max-width: 768px) {
     display: none;
   }
 `;
 
-const BankTiming = styled.div`
+const BranchesTitle = styled.h3`
+  color: #1e69de;
+  font-size: 1.5rem;
+  margin-bottom: 1.5rem;
   text-align: center;
+`;
+
+const BranchesRow = styled.div`
+  display: flex;
+  gap: 2rem;
+  align-items: flex-start;
+  justify-content: space-between;
+`;
+
+const BranchWrapper = styled.div`
+  text-align: center;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+`;
+
+const BranchTitle = styled.h4`
+  color: #1e69de;
+  font-weight: 600;
+  margin-bottom: 8px;
+  font-size: 1.1rem;
+`;
+
+const WhatsAppIcon = styled.a`
+  display: inline-block;
+  margin-top: 0.5rem;
+  font-size: 1.5rem;
+  color: #25d366;
+  transition: color 0.2s ease-in-out;
+
+  &:hover {
+    color: #128c7e;
+  }
 `;
 
 const slideDown = keyframes`
@@ -223,90 +268,102 @@ function Footer() {
   return (
     <FooterContainer>
       <DesktopFooterWrapper>
-        <CenterContent>
-          <Name>SUPREET SOUHARDA</Name>
-          <Nav>
-            <NavLink href="#about">Home</NavLink>
-            <NavLink href="#services">Services</NavLink>
-            <NavLink href="#statistics">Statistics</NavLink>
-            <NavLink href="#gallery">Gallery</NavLink>
-            <NavLink href="#management">Management</NavLink>
-          </Nav>
-          <SocialMediaIcons>
-            <SocialMediaIcon
-              href="https://wa.me/8867313323?text=Hello%2C%20I%20need%20assistance"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              <WhatsappIcon />
-            </SocialMediaIcon>
-            <SocialMediaIcon href="#" target="_blank" rel="noopener noreferrer">
-              <FacebookIcon />
-            </SocialMediaIcon>
-            <SocialMediaIcon href="#" target="_blank" rel="noopener noreferrer">
-              <TwitterIcon />
-            </SocialMediaIcon>
-            <SocialMediaIcon href="#" target="_blank" rel="noopener noreferrer">
-              <InstagramIcon />
-            </SocialMediaIcon>
-          </SocialMediaIcons>
-        </CenterContent>
+        <BranchesContainer>
+          <BranchesTitle>Our Branches</BranchesTitle>
+          <BranchesRow>
+            <BranchWrapper>
+              <BranchTitle>Kelaginoor Branch</BranchTitle>
+              <AddressContent>
+                <AddressText>
+                  Supreet Souharda Co-op Society<br />
+                  Kelginoor, Honnavar, Karnataka 581342
+                </AddressText>
+                <GoogleMap
+                  src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d4828.934225696692!2d74.4428896759224!3d14.24297138573069!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3bbc3bf2f858feed%3A0x6e84e0ea6d2314e6!2sSupreet%20Souharda%20Co-op%20Society!5e1!3m2!1sen!2sus!4v1719344543084!5m2!1sen!2sus"
+                  allowFullScreen
+                  loading="lazy"
+                />
+                <WhatsAppIcon href="https://wa.me/8867313323" target="_blank">
+                  <WhatsappIcon />
+                </WhatsAppIcon>
+              </AddressContent>
+            </BranchWrapper>
+            
+            <BranchWrapper>
+              <BranchTitle>Honnavar Branch</BranchTitle>
+              <AddressContent>
+                <AddressText>
+                  Supreet Souharda Co-op Society<br />
+                  Bazar Road, Honnavar, Karnataka 581334
+                </AddressText>
+                <GoogleMap
+                  src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d4828.934225696692!2d74.4428896759224!3d14.24297138573069!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3bbc3bf2f858feed%3A0x6e84e0ea6d2314e6!2sSupreet%20Souharda%20Co-op%20Society!5e1!3m2!1sen!2sus!4v1719344543084!5m2!1sen!2sus"
+                  allowFullScreen
+                  loading="lazy"
+                />
+                <WhatsAppIcon href="https://wa.me/1234567890" target="_blank">
+                  <WhatsappIcon />
+                </WhatsAppIcon>
+              </AddressContent>
+            </BranchWrapper>
+            
+            <BranchWrapper>
+              <BranchTitle>Kavalakki Branch</BranchTitle>
+              <AddressContent>
+                <AddressText>
+                  Supreet Souharda Co-op Society<br />
+                  Honnavar Hwy, Kavalakki, Karnataka 581361
+                </AddressText>
+                <GoogleMap
+                  src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d4828.934225696692!2d74.4428896759224!3d14.24297138573069!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3bbc3bf2f858feed%3A0x6e84e0ea6d2314e6!2sSupreet%20Souharda%20Co-op%20Society!5e1!3m2!1sen!2sus!4v1719344543084!5m2!1sen!2sus"
+                  allowFullScreen
+                  loading="lazy"
+                />
+                <WhatsAppIcon href="https://wa.me/1234567890" target="_blank">
+                  <WhatsappIcon />
+                </WhatsAppIcon>
+              </AddressContent>
+            </BranchWrapper>
+          </BranchesRow>
+        </BranchesContainer>
 
-        <PartitionLine />
+        <DividerLine />
 
-        <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', gap: '2rem' }}>
-          <BankTiming>
-            <h3>Timings</h3>
-            <AddressText>
-              Every second and fourth Saturday of the month is a bank holiday.
-              <br />
-              Lunch break from 1:30 to 2:30 pm
-              <br />
-              <br />
-            </AddressText>
-            <TimingTableWrapper>
-              <TimingTable>
-                <thead>
-                  <tr>
-                    <TimingHeader>Day</TimingHeader>
-                    <TimingHeader>Operating Hours</TimingHeader>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr>
-                    <TimingData>Monday - Saturday</TimingData>
-                    <TimingData>10:00 AM – 5:30 PM</TimingData>
-                  </tr>
-                  <tr>
-                    <TimingData>Sunday
-                      <br />
-                      <br />
-                    </TimingData>
-                    <TimingData>Closed
-                      <br />
-                      <br />
-                    </TimingData>
-                  </tr>
-                </tbody>
-              </TimingTable>
-            </TimingTableWrapper>
-          </BankTiming>
-
-          <AddressWrapper>
-            <AddressContent>
-              <h3>Address</h3>
-              <AddressText>
-                Supreet Souharda Credit Sahakari Niyamita Kelaginoor,
-                <br />
-                Kelaginoor, Honnavar, Karnataka 581342
-              </AddressText>
-              <GoogleMap
-                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d4828.934225696692!2d74.4428896759224!3d14.24297138573069!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3bbc3bf2f858feed%3A0x6e84e0ea6d2314e6!2sSupreet%20Souharda%20Co-op%20Society!5e1!3m2!1sen!2sus!4v1719344543084!5m2!1sen!2sus"
-                allowFullScreen
-                loading="lazy"
-              ></GoogleMap>
-            </AddressContent>
-          </AddressWrapper>
+        <div>
+          <h3 style={{ color: '#1e69de', fontSize: '1.5rem', marginBottom: '1.5rem', textAlign: 'center' }}>Timings</h3>
+          <AddressText>
+            Every second and fourth Saturday of the month is a bank holiday.
+            <br />
+            Lunch break from 1:30 to 2:30 pm
+          </AddressText>
+          <TimingTableWrapper>
+            <TimingTable>
+              <thead>
+                <tr>
+                  <TimingHeader>Day</TimingHeader>
+                  <TimingHeader>Operating Hours</TimingHeader>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <TimingData>Monday - Saturday</TimingData>
+                  <TimingData>10:00 AM – 5:30 PM</TimingData>
+                </tr>
+                <tr>
+                  <TimingData>Sunday
+                    <br />
+                     <br />
+                    .
+                  </TimingData>
+                  <TimingData>Closed
+                     <br />
+                     <br />
+                    .
+                  </TimingData>
+                </tr>
+              </tbody>
+            </TimingTable>
+          </TimingTableWrapper>
         </div>
       </DesktopFooterWrapper>
 

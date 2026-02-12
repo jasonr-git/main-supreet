@@ -1,45 +1,29 @@
 import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
-import Payment from './Payment';
-import bgImage from '../../images/bg2.avif'; // Ensure the path is correct
-
-// Styled components
-const PageContainer = styled.div`
-  display: flex;
-  flex-direction: column;
-  min-height: 100vh;
-  background: url(${bgImage}) no-repeat center center;
-  background-size: cover;
-`;
+import emailjs from 'emailjs-com';
+import { QRCodeSVG } from 'qrcode.react';
+import bgImage from '../../images/bg2.avif';
 
 const UniqueFormContainer = styled.div`
   width: 90%;
-  max-width: 90%;
-  padding: 30px;
+  max-width: 900px;
+  padding: 40px;
   margin: 20px auto;
-  border-radius: 12px;
+  border-radius: 20px;
   margin-top: 10rem;
-  background-color: rgba(255, 255, 255, 0.7);
-  backdrop-filter: blur(25px);
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-  font-family: 'Roboto', sans-serif;
-
-  @media (max-width: 1200px) {
-    margin-top: 10rem;
-  }
-
-  @media (max-width: 992px) {
-    margin-top: 10rem;
-  }
+  background-color: rgba(255, 255, 255, 0.6);
+  backdrop-filter: blur(10px);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+  font-family: 'Inter', 'Poppins', sans-serif;
 
   @media (max-width: 768px) {
     margin-top: 6rem;
-    max-width: 800px;
+    padding: 30px;
   }
 
   @media (max-width: 576px) {
     margin-top: 6rem;
-    max-width: 100%;
+    padding: 20px;
   }
 `;
 
@@ -49,18 +33,13 @@ const UniqueFormStep = styled.div`
   gap: 15px;
 `;
 
-const UniqueLabel = styled.label`
-  font-weight: 600;
-  color: #333;
-`;
-
 const UniqueInput = styled.input`
-  padding: 12px;
+  width: 100%;
+  padding: 16px;
   border: 1px solid #ddd;
   border-radius: 8px;
   font-size: 16px;
-  transition: border-color 0.3s ease;
-
+  box-sizing: border-box;
   &:focus {
     border-color: #007bff;
     outline: none;
@@ -72,21 +51,6 @@ const UniqueSelect = styled.select`
   border: 1px solid #ddd;
   border-radius: 8px;
   font-size: 16px;
-  transition: border-color 0.3s ease;
-
-  &:focus {
-    border-color: #007bff;
-    outline: none;
-  }
-`;
-
-const UniqueTextarea = styled.textarea`
-  padding: 12px;
-  border: 1px solid #ddd;
-  border-radius: 8px;
-  font-size: 16px;
-  transition: border-color 0.3s ease;
-
   &:focus {
     border-color: #007bff;
     outline: none;
@@ -102,177 +66,278 @@ const UniqueButton = styled.button`
   color: white;
   font-size: 16px;
   cursor: pointer;
-  transition: background 0.3s ease, transform 0.2s ease;
-
   &:hover {
     background: linear-gradient(90deg, #0056b3 0%, #003f88 100%);
     transform: translateY(-2px);
   }
 `;
 
-const Step1 = ({ formData, handleChange, handleNextStep }) => (
-  <UniqueFormStep>
-    <h2>Enter Details</h2>
-    <UniqueLabel htmlFor="name">Name:</UniqueLabel>
-    <UniqueInput
-      type="text"
-      id="name"
-      name="name"
-      value={formData.name}
-      onChange={handleChange}
-    />
-    <UniqueLabel htmlFor="paymentType">Payment Type:</UniqueLabel>
-    <UniqueSelect
-      id="paymentType"
-      name="paymentType"
-      value={formData.paymentType}
-      onChange={handleChange}
-    >
-      <option value="rd">RD Payment</option>
-      <option value="loan">Loan Repayment</option>
-    </UniqueSelect>
-    <UniqueLabel htmlFor="phoneNumber">Phone Number:</UniqueLabel>
-    <UniqueInput
-      type="tel"
-      id="phoneNumber"
-      name="phoneNumber"
-      value={formData.phoneNumber}
-      onChange={handleChange}
-    />
-    <UniqueLabel htmlFor="amount">Amount:</UniqueLabel>
-    <UniqueInput
-      type="number"
-      id="amount"
-      name="amount"
-      value={formData.amount}
-      onChange={handleChange}
-    />
-    <UniqueLabel htmlFor="remarks">Remarks:</UniqueLabel>
-    <UniqueTextarea
-      id="remarks"
-      name="remarks"
-      value={formData.remarks}
-      onChange={handleChange}
-    />
-    <UniqueButton type="button" onClick={handleNextStep}>Next</UniqueButton>
-  </UniqueFormStep>
-);
+const SplitContainer = styled.div`
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 24px;
+  margin: 24px 0;
+  @media (max-width: 768px) {
+    grid-template-columns: 1fr;
+  }
+`;
 
-const Step2 = ({ formData, handleNextStep, handlePreviousStep }) => (
-  <UniqueFormStep>
-    <h2>Confirm Details</h2>
-    <p><strong>Name:</strong> {formData.name}</p>
-    <p><strong>Payment Type:</strong> {formData.paymentType}</p>
-    <p><strong>Phone Number:</strong> {formData.phoneNumber}</p>
-    <p><strong>Amount:</strong> {formData.amount}</p>
-    <p><strong>Remarks:</strong> {formData.remarks}</p>
-    <UniqueButton type="button" onClick={handlePreviousStep}>Back</UniqueButton>
-    <UniqueButton type="button" onClick={handleNextStep}>Proceed to Payment</UniqueButton>
-  </UniqueFormStep>
-);
+const PaymentBox = styled.div`
+  background: #f8fafc;
+  padding: 24px;
+  border-radius: 16px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+`;
 
-const Step3 = ({ formData, handlePaymentSuccess, handlePreviousStep, setIsPaymentAttempted }) => {
-  const handleProceedToPayment = () => {
-    setIsPaymentAttempted(true); // Mark that payment has been attempted
-    // Here you'd typically trigger a UPI action like opening the UPI app
-  };
+const QRWrapper = styled.div`
+  margin: 20px auto;
+  padding: 12px;
+  background: white;
+  display: inline-block;
+  border-radius: 12px;
+  border: 1px solid #e2e8f0;
+`;
 
-  return (
-    <UniqueFormStep>
-      <Payment
-        upiID="supreetsouharda@kbl"
-        amount={formData.amount}
-        onPaymentComplete={handlePaymentSuccess}
-      />
-      <UniqueButton type="button" onClick={handlePreviousStep} style={{ marginTop: '20px' }}>
-        Back
-      </UniqueButton>
-    </UniqueFormStep>
-  );
+const CopyRow = styled.div`
+  margin-bottom: 16px;
+  text-align: left;
+`;
+
+const Label = styled.label`
+  display: block;
+  font-size: 11px;
+  font-weight: 600;
+  color: ${props => props.white ? '#ffffff' : '#64748b'};
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  margin-bottom: 6px;
+`;
+
+const CopyBox = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: white;
+  border: 1px solid #e2e8f0;
+  border-radius: 8px;
+  padding: 12px;
+`;
+
+const CopyValue = styled.span`
+  font-family: 'Courier New', monospace;
+  color: #1e293b;
+  font-weight: 600;
+  user-select: all;
+`;
+
+const CopyIcon = styled.button`
+  background: none;
+  border: none;
+  color: #3b82f6;
+  cursor: pointer;
+  padding: 4px;
+  display: flex;
+  align-items: center;
+  transition: color 0.2s;
+  &:hover {
+    color: #1d4ed8;
+  }
+`;
+
+const AmountBadge = styled.div`
+  background: #10b981;
+  color: white;
+  padding: 8px 16px;
+  border-radius: 20px;
+  font-weight: 600;
+  font-size: 18px;
+  display: inline-block;
+  margin-bottom: 16px;
+`;
+
+const UPIPill = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: white;
+  border: 1px solid #e2e8f0;
+  border-radius: 24px;
+  padding: 12px 16px;
+  margin: 16px auto;
+  max-width: 320px;
+`;
+
+const BRANCHES = {
+  Kelginoor: { upi: 'supreetsouharda@kbl', account: '2912500100346801', ifsc: 'KARB0000291', bank: 'Karnataka Bank', accountName: 'Supreet Souharda Co Operative Society Ltd' },
+  Honnavar: { upi: 'vyapar.170854471658@hdfcbank', account: '99908088827357', ifsc: 'HDFC0004156', bank: 'HDFC Bank', accountName: 'Supreet Souharda Co-Op Society Ltd' },
+  Kavalakki: { upi: 'supreetsouharda@cnrb', account: '120037360801', ifsc: 'CNRB0008803', bank: 'CANARA BANK', accountName: 'Supreet Souharda Co-operative Society Ltd Kelginoor Br- Kavalakki' }
 };
-
-const Step4 = () => (
-  <UniqueFormStep>
-   <h2>Your payment is being processed</h2>
-<p>Thank you! Your payment is currently being processed. You will receive a confirmation shortly.</p>
-
-  </UniqueFormStep>
-);
 
 const FormManager = () => {
   const [step, setStep] = useState(1);
   const [formData, setFormData] = useState({
-    name: '',
-    paymentType: '',
-    phoneNumber: '',
-    amount: '',
-    remarks: '',
+    name: '', phone: '', email: '', paymentType: '', amount: '', branch: ''
   });
-  const [isPaymentAttempted, setIsPaymentAttempted] = useState(false); // New state to track UPI app open
-  const [isPaymentSuccessful, setIsPaymentSuccessful] = useState(false); // Track successful payment
+  const [utr, setUtr] = useState('');
 
   useEffect(() => {
-    const handleVisibilityChange = () => {
-      if (document.visibilityState === 'visible' && isPaymentAttempted) {
-        // The user has come back from the UPI app
-        const paymentState = localStorage.getItem('paymentState'); // Simulate payment success
-        if (paymentState) {
-          localStorage.removeItem('paymentState');
-          setIsPaymentSuccessful(true);
-          setStep(4); // Proceed to Step 4 only after payment success
-        } else {
-          // Handle unsuccessful payment scenario (if required)
-          alert('Payment was not successful. Please try again.');
-        }
-      }
-    };
-
-    document.addEventListener('visibilitychange', handleVisibilityChange);
-
-    return () => {
-      document.removeEventListener('visibilitychange', handleVisibilityChange);
-    };
-  }, [isPaymentAttempted]);
-
-  const handleNextStep = () => setStep(step + 1);
-  const handlePreviousStep = () => setStep(step - 1);
+    window.scrollTo(0, 0);
+  }, [step]);
 
   const handleChange = (e) => {
-    const { name, value } = e.target;
-    setFormData({ ...formData, [name]: value });
+    setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
-  const handlePaymentSuccess = () => {
-    localStorage.setItem('paymentState', 'success'); // Simulate storing success in localStorage
-    setIsPaymentSuccessful(true);
-    handleNextStep(); // Move to Step 4 after payment completion
+  const handleNext = () => {
+    if (formData.name && formData.phone && formData.email && formData.paymentType && formData.amount && formData.branch) {
+      setStep(2);
+    } else {
+      alert('Please fill all fields');
+    }
   };
+
+  const handleConfirm = async () => {
+    if (!utr) {
+      alert('Please enter UTR/Transaction number');
+      return;
+    }
+
+    try {
+      await emailjs.send(
+        'service_t5bh5t6',
+        'template_k13hxez',
+        {
+          to_email: 'bank@supreetsouharda.com',
+          from_name: formData.name,
+          from_email: formData.email,
+          phone: formData.phone,
+          payment_type: formData.paymentType,
+          amount: formData.amount,
+          branch: formData.branch,
+          utr: utr
+        },
+        'w5fGLVI0VKb3QrOkW'
+      );
+      setStep(3);
+    } catch (error) {
+      alert('Failed to send confirmation');
+    }
+  };
+
+  const [copied, setCopied] = useState('');
+
+  const copyToClipboard = (text, field) => {
+    navigator.clipboard.writeText(text);
+    setCopied(field);
+    setTimeout(() => setCopied(''), 2000);
+  };
+
+  const branch = BRANCHES[formData.branch];
 
   return (
     <UniqueFormContainer>
       {step === 1 && (
-        <Step1
-          formData={formData}
-          handleChange={handleChange}
-          handleNextStep={handleNextStep}
-        />
+        <UniqueFormStep>
+          <h2>Make a Payment</h2>
+          <UniqueInput type="text" name="name" placeholder="Full Name" value={formData.name} onChange={handleChange} />
+          <UniqueInput type="tel" name="phone" placeholder="Phone Number" value={formData.phone} onChange={handleChange} />
+          <UniqueInput type="email" name="email" placeholder="Email" value={formData.email} onChange={handleChange} />
+          <UniqueSelect name="paymentType" value={formData.paymentType} onChange={handleChange}>
+            <option value="">Select Payment Type</option>
+            <option value="Recurring Deposit">Recurring Deposit</option>
+            <option value="Loan Repayment">Loan Repayment</option>
+            <option value="Fixed Deposit">Fixed Deposit</option>
+            <option value="Other">Other</option>
+          </UniqueSelect>
+          <UniqueInput type="number" name="amount" placeholder="Amount (₹)" value={formData.amount} onChange={handleChange} />
+          <UniqueSelect name="branch" value={formData.branch} onChange={handleChange}>
+            <option value="">Select Branch</option>
+            <option value="Kelginoor">Kelginoor</option>
+            <option value="Honnavar">Honnavar</option>
+            <option value="Kavalakki">Kavalakki</option>
+          </UniqueSelect>
+          <UniqueButton onClick={handleNext}>Next</UniqueButton>
+        </UniqueFormStep>
       )}
-      {step === 2 && (
-        <Step2
-          formData={formData}
-          handleNextStep={handleNextStep}
-          handlePreviousStep={handlePreviousStep}
-        />
+
+      {step === 2 && branch && (
+        <UniqueFormStep>
+          <h2 style={{ marginBottom: '24px', color: '#1e293b' }}>Complete Payment</h2>
+          <SplitContainer>
+            <PaymentBox style={{ textAlign: 'center' }}>
+              <h3 style={{ color: '#1e293b', marginBottom: '16px' }}>Pay via UPI</h3>
+              <QRWrapper>
+                <QRCodeSVG value={`upi://pay?pa=${branch.upi}&pn=Supreet Souharda&am=${formData.amount}&cu=INR`} size={200} />
+              </QRWrapper>
+              <UPIPill>
+                <CopyValue style={{ fontSize: '14px' }}>{branch.upi}</CopyValue>
+                <CopyIcon onClick={() => copyToClipboard(branch.upi, 'upi')}>
+                  {copied === 'upi' ? '✓' : '📋'}
+                </CopyIcon>
+              </UPIPill>
+            </PaymentBox>
+            <PaymentBox>
+              <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '20px' }}>
+                <h3 style={{ color: '#1e293b', margin: 0 }}>Bank Details</h3>
+                <AmountBadge>₹{formData.amount}</AmountBadge>
+              </div>
+              <CopyRow>
+                <Label>Bank Name</Label>
+                <CopyBox>
+                  <CopyValue>{branch.bank}</CopyValue>
+                </CopyBox>
+              </CopyRow>
+              {branch.accountName && (
+                <CopyRow>
+                  <Label>Account Name</Label>
+                  <CopyBox>
+                    <CopyValue style={{ fontSize: '13px' }}>{branch.accountName}</CopyValue>
+                  </CopyBox>
+                </CopyRow>
+              )}
+              <CopyRow>
+                <Label>Account Number</Label>
+                <CopyBox>
+                  <CopyValue>{branch.account}</CopyValue>
+                  <CopyIcon onClick={() => copyToClipboard(branch.account, 'account')}>
+                    {copied === 'account' ? '✓' : '📋'}
+                  </CopyIcon>
+                </CopyBox>
+              </CopyRow>
+              <CopyRow>
+                <Label>IFSC Code</Label>
+                <CopyBox>
+                  <CopyValue>{branch.ifsc}</CopyValue>
+                  <CopyIcon onClick={() => copyToClipboard(branch.ifsc, 'ifsc')}>
+                    {copied === 'ifsc' ? '✓' : '📋'}
+                  </CopyIcon>
+                </CopyBox>
+              </CopyRow>
+              <CopyRow>
+                <Label>Branch</Label>
+                <CopyBox>
+                  <CopyValue>{formData.branch}</CopyValue>
+                </CopyBox>
+              </CopyRow>
+            </PaymentBox>
+          </SplitContainer>
+          <div style={{ marginTop: '24px' }}>
+            <Label white>Transaction ID / UTR Number</Label>
+            <UniqueInput type="text" placeholder="Enter UTR/Transaction Number" value={utr} onChange={(e) => setUtr(e.target.value)} style={{ marginBottom: '12px' }} />
+          </div>
+          <UniqueButton onClick={handleConfirm} style={{ background: 'linear-gradient(90deg, #3b82f6 0%, #2563eb 100%)' }}>Verify & Confirm</UniqueButton>
+        </UniqueFormStep>
       )}
+
       {step === 3 && (
-        <Step3
-          formData={formData}
-          handlePaymentSuccess={handlePaymentSuccess}
-          handlePreviousStep={handlePreviousStep}
-          setIsPaymentAttempted={setIsPaymentAttempted}
-        />
+        <UniqueFormStep style={{ textAlign: 'center' }}>
+          <h2>✓ Payment Confirmation Sent!</h2>
+          <p>We'll verify your payment and contact you shortly.</p>
+          <UniqueButton onClick={() => { setStep(1); setFormData({ name: '', phone: '', email: '', paymentType: '', amount: '', branch: '' }); setUtr(''); }}>
+            Make Another Payment
+          </UniqueButton>
+        </UniqueFormStep>
       )}
-      {step === 4 && <Step4 />}
     </UniqueFormContainer>
   );
 };

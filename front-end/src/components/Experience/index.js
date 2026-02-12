@@ -5,8 +5,8 @@ import { db } from '../../firebase';
 import { CircularProgress, Typography } from '@mui/material';
 
 import Management from './member';
+import Timeline from './Timeline';
 
-// Import your CSS file for Sidebar
 import './Sidebar.css';
 
 const Container = styled.div`
@@ -66,40 +66,46 @@ const Wrapper = styled.div`
 const Wrapperdesc = styled.div`
     position: relative;
     display: flex;
-    justify-content: center; /* Center the content */
+    justify-content: center;
     align-items: center;
     flex-direction: column;
     width: 100%;
     max-width: 960px;
-    padding: 80px 0;
+    padding: 80px 0 40px;
     gap: 12px;
     @media (max-width: 768px) {
         width: 90%;
+        padding: 40px 0 20px;
     }
 `;
 
 const Title = styled.div`
-    font-size: 42px;
+    font-family: 'Poppins', sans-serif;
+    font-size: 3rem;
     text-align: center;
-    font-weight: 600;
+    font-weight: 700;
     margin-top: 10vh;
     color: ${({ theme }) => theme.text_primary};
+    letter-spacing: -0.02em;
     @media (max-width: 768px) {
         margin-top: 12px;
-        font-size: 32px;
+        font-size: 2rem;
     }
 `;
 
 const Desc = styled.div`
     margin-top: 2%;
-    font-size: 22px;
+    font-family: 'Inter', sans-serif;
+    font-size: 1.125rem;
+    line-height: 1.75;
     text-align: center;
-    color: ${({ theme }) => theme.text_secondary};
+    color: rgba(255, 255, 255, 0.85);
+    max-width: 800px;
     @media (max-width: 768px) {
         margin-top: 12px;
-        font-size: 16px;
+        font-size: 1rem;
+        line-height: 1.6;
     }
-    text-align: justify; 
 `;
 
 
@@ -206,37 +212,17 @@ const Index = () => {
 
     return (
         <Container id="experience">
-
-            {/* ABOUT OUR ORIGIN */}
             <Wrapperdesc>
                 <Title>{isEnglish ? 'Origin' : 'ಆರಂಭ'}</Title>
                 <Desc>{originDesc}</Desc>
             </Wrapperdesc>
 
-            {/* STATS SECTION */}
-            {/* <Wrapper>
-                <Title>Statistics</Title>
-                <Desc>Year to year progress</Desc>
-                <TimelineSection>
-                    <Timeline>
-                        {experiences.map((experience, index) => (
-                            <TimelineItem key={experience.id}>
-                                <TimelineSeparator>
-                                    <TimelineDot variant="outlined" color="secondary" />
-                                    {index !== experiences.length - 1 && <TimelineConnector sx={{ background: '#854CE6' }} />}
-                                </TimelineSeparator>
-                                <TimelineContent sx={{ py: 1, px: 2, textAlign: 'center' }}>
-                                    <ExperienceCard experience={experience} />
-                                </TimelineContent>
-                            </TimelineItem>
-                        ))}
-                    </Timeline>
-                </TimelineSection>
-            </Wrapper> */}
+            <Timeline />
 
             <Wrapper>
                 <Management />
             </Wrapper>
+            
             <Sidebar isEnglish={isEnglish} toggleLanguage={toggleLanguage} />
         </Container>
     );
